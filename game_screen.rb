@@ -30,3 +30,12 @@ class GameScreen
     def accelerate_player(direction)
         @player.accelerate(direction)
     end   
+
+    def stop_accelerating_player
+        @player.stop_accelerating
+      end
+    
+      def player_fire_projectile
+        @player.fire_projectile
+      end
+end
