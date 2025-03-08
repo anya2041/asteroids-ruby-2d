@@ -17,4 +17,16 @@ class GameScreen
           @asteroids.push(Asteroid.new)
         end
 
-        
+    @asteroids.each { |asteroid| asteroid.move }
+
+        @player.move
+        @player.slow_down
+    end
+    
+    def rotate_player(direction)
+        @player.rotate(direction)
+    end
+    
+    def accelerate_player(direction)
+        @player.accelerate(direction)
+    end   
