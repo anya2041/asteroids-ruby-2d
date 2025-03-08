@@ -16,3 +16,8 @@ class Asteroid
         height: HEIGHT * scale,
         rotate: rand(360)
       )
+
+      @x_velocity = Math.sin(@sprite.rotate * Math::PI / 180) * speed
+      @y_velocity = -Math.cos(@sprite.rotate * Math::PI / 180) * speed
+    end
+  
