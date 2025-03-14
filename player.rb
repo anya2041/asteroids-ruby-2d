@@ -91,4 +91,27 @@ class Player
           projectile.move
         end
       end
-          
+
+      def slow_down
+        @x_velocity *= SLOW_DOWN_RATE
+        @y_velocity *= SLOW_DOWN_RATE
+      end
+    
+      def stop_accelerating
+        animate_slow
+      end
+      def fire_projectile
+        if @last_projectile_fired_frame + 25 - (@fire_rate / 10) < Window.frames
+          x_component = Math.sin(@sprite.rotate * Math::PI / 180)
+          y_component = -Math.cos(@sprite.rotate * Math::PI / 180)
+    
+          x = @sprite.x + (@sprite.width * 0.5) + (x_component * @sprite.width)
+          y = @sprite.y + (@sprite.height * 0.5) + (y_component * @sprite.height)
+          direction = 0
+    
+          @projectiles.push(Projectile.new(x, y, @sprite.rotate))
+          @projectiles = @projectiles.last(20)
+          @last_projectile_fired_frame = Window.frames
+        end
+      end
+    end
