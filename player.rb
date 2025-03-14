@@ -32,4 +32,7 @@ class Player
           }
         )
       end
+      def animate_slow
+        @sprite.play(animation: :moving_slow, loop: true)
+      end
     
