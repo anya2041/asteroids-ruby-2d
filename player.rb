@@ -39,4 +39,12 @@ class Player
       def animate_fast
         @sprite.play(animation: :moving_fast, loop: true)
       end
-    
+
+      def rotate(direction)
+        case direction
+        when :left
+          @sprite.rotate -= ROTATE_SPEED
+        when :right
+          @sprite.rotate += ROTATE_SPEED
+        end
+      end
