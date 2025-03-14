@@ -48,3 +48,47 @@ class Player
           @sprite.rotate += ROTATE_SPEED
         end
       end
+
+      def accelerate(direction)
+        animate_fast
+    
+        x_component = Math.sin(@sprite.rotate * Math::PI / 180) * VELOCITY_INCREASE_SPEED * (@speed / 100.0)
+        y_component = Math.cos(@sprite.rotate * Math::PI / 180) * VELOCITY_INCREASE_SPEED * (@speed / 100.0)
+    
+        case direction
+        when :forwards
+          @x_velocity += x_component
+          @y_velocity -= y_component
+        when :backwards
+          @x_velocity -= x_component
+          @y_velocity += y_component
+        end
+    
+        total_velocity = @x_velocity.abs + @y_velocity.abs
+    
+        if total_velocity > MAX_VELOCITY
+          @x_velocity = @x_velocity * (MAX_VELOCITY / total_velocity)
+          @y_velocity = @y_velocity * (MAX_VELOCITY / total_velocity)
+        end
+      end
+      def move
+        @sprite.x += @x_velocity
+        @sprite.y += @y_velocity
+    
+        if @sprite.x > Window.width + @sprite.width
+          @sprite.x = -@sprite.width
+        elsif @sprite.x < -@sprite.width
+          @sprite.x = Window.width + @sprite.width
+        end
+    
+        if @sprite.y > Window.height + @sprite.height
+          @sprite.y = -@sprite.height
+        elsif @sprite.y < -@sprite.height
+          @sprite.y = Window.height + @sprite.height
+        end
+    
+        @projectiles.each do |projectile|
+          projectile.move
+        end
+      end
+          
